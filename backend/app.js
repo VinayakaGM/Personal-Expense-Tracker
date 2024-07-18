@@ -8,6 +8,9 @@ const app = express();
 dotenv.config();
 db();
 
+//middlewares
+app.use(express.json());
+
 //routes
 app.use("/api/users", userRouter);
 app.use("/api/expenses", expenseRoute);

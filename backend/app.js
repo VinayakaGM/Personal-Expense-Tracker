@@ -10,6 +10,7 @@ db();
 
 //middlewares
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //routes
 app.use("/api/users", userRouter);

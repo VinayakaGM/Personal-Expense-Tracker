@@ -1,15 +1,20 @@
 import { useState } from "react";
 import axios from "axios";
 import STYLE from "./Register.module.css"
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: "",
+    name: "",
     email: "",
     password: "",
   });
 
-  const { username, email, password } = formData;
+  const { name, email, password } = formData;
+
+  const navigate = useNavigate();
 
 
   const onChange = (e) =>
@@ -18,8 +23,25 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("/api/users/register", formData);
+      const res = await axios.post("http://localhost:4000/api/users/register", formData);
       localStorage.setItem("token", res.data.token);
+      console.log(res.data);
+      toast.success("Registered successfully !", {
+        position: "top-center",
+        autoClose: 2000,
+        draggable: true,
+        progress: undefined,
+      });
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
+
+      if (!name || !email || !password) {
+        toast.error("Please fill all the fields", {
+          position: "top-center",
+      });
+      }
+
     } catch (err) {
       console.error(err.response.data);
     }
@@ -33,8 +55,8 @@ const Register = () => {
         <label>Username</label>
         <input
           type="text"
-          name="username"
-          value={username}
+          name="name"
+          value={name}
           onChange={onChange}
         />
       </div>
@@ -53,6 +75,7 @@ const Register = () => {
       </div>
       <button type="submit" className={STYLE.register_btn}>Register</button>
     </form>
+    <ToastContainer />
     </div>
   );
 };

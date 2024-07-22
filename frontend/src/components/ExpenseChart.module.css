@@ -1,0 +1,50 @@
+.expense_chart_container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .expense_chart_title {
+    font-size: 2.5rem;
+    /* color: #343a40; */
+    color: #173a60;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  
+  .expense_chart {
+    margin: 0 auto;
+    max-width: 100%;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .expense_chart_bar {
+    width: 100%;
+    height: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .expense_chart_container {
+      padding: 1.5rem;
+    }
+  
+    .expense_chart_title {
+      font-size: 1.75rem;
+    }
+  
+    .expense_chart {
+      height: 300px; 
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .expense_chart {
+      height: 250px; 
+    }
+  }

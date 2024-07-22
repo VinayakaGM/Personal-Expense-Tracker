@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import ExpenseChart from '../ExpenseChart';
 import STYLE from './Summary.module.css';
 
-const Summary = () => {
+
+function Summary() {
     const [summary, setSummary] = useState({
         total: 0,
         categories: {}
@@ -10,11 +12,17 @@ const Summary = () => {
 
     const fetchSummary = async () => {
         const token = localStorage.getItem('token');
-        const res = await axios.get('/api/expenses', {
+
+        try{
+        const res = await axios.get('http://localhost:4000/api/expenses', {
             headers: {
-                'x-auth-token': token
+                'x-auth-token': `${token}`, // Include the token
             }
         });
+
+        if (!Array.isArray(res.data)) {
+            throw new Error('Expected an array from API response');
+        }
 
         const total = res.data.reduce((acc, expense) => acc + expense.amount, 0);
         const categories = res.data.reduce((acc, expense) => {
@@ -26,7 +34,11 @@ const Summary = () => {
         }, {});
 
         setSummary({ total, categories });
-    };
+     } catch (error) {
+        console.error('Error fetching summary:', error.message);
+    }
+};
+
 
     useEffect(() => {
         fetchSummary();
@@ -43,8 +55,12 @@ const Summary = () => {
                     </li>
                 ))}
             </ul>
+            <ExpenseChart />
         </div>
     );
 }
 
 export default Summary;
+
+
+

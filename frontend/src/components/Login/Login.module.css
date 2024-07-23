@@ -89,3 +89,25 @@
     padding: 1.5rem;
   }
 }
+
+
+/*show/hide password*/
+.password_input_wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password_input_wrapper input {
+  flex-grow: 1;
+  padding-right: 40px; 
+}
+
+.toggle_password_btn {
+  position: absolute;
+  right: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}

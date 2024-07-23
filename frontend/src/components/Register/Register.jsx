@@ -4,6 +4,7 @@ import STYLE from "./Register.module.css"
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ const Register = () => {
     email: "",
     password: "",
   });
+  const [showPassword, setShowPassword] = useState(false);
 
   const { name, email, password } = formData;
 
@@ -47,6 +49,10 @@ const Register = () => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className={STYLE.register_container}>
       <h1 className={STYLE.register_title}>Register</h1>
@@ -65,13 +71,22 @@ const Register = () => {
         <input type="email" name="email" value={email} onChange={onChange} />
       </div>
       <div className={STYLE.form_control}>
-        <label>Password</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={onChange}
-        />
+      <label>Password</label>
+          <div className={STYLE.password_input_wrapper}>
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={password}
+              onChange={onChange}
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className={STYLE.toggle_password_btn}
+            >
+              {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+            </button>
+          </div>
       </div>
       <button type="submit" className={STYLE.register_btn}>Register</button>
     </form>
